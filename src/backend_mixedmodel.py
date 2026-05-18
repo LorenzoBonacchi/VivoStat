@@ -6,9 +6,9 @@
 # input type of data (e.g. gene expression, methylation, etc.)
 # input type of plots
 import os 
+import pandas as pd
 
 data = input('Write the data-file name' + '\nThe format msut be included (ex. data.csv, data.tsv, data.xlsx)  ')
-
 
 try:
 	with open(data) as file:
@@ -16,6 +16,11 @@ try:
 except FileNotFoundError:
 	print('That file was not found')
 
+# if statements to check the format of the data file and read it accordingly
+if data.endswith('.csv'):
+    df = pd.read_csv(data)
+    print("The data file looks like this:")
+    print(df.head())
 
 # ------ Test function call ---------- #
 
