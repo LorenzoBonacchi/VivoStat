@@ -1,0 +1,7 @@
+# -------------- 18 - 05 - 2026 ------ # 
+# TO DO's order
+1. Backend --> Python code to perform a 3-way anova 
+2. Test script to define the best inputs and expected outputs
+3. Move to a front end --> probably streamlit
+4. Test
+5. Ponder about a db inclusion
