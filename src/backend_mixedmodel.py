@@ -7,12 +7,12 @@
 # input type of plots
 import os 
 import pandas as pd
+import csv
 
 data = input(
     'Write the data-file name\n'
     'The format must be included (ex. data.csv, data.tsv, data.xlsx): '
 )
-
 
 try:
     if data.endswith('.csv'):
@@ -38,9 +38,21 @@ test_type = input(
     'other test: 2\n'
 )
 
+
 # Search for the metadata/factors 
 # The idea is to check for strings and numbers to identify metadata
 
+with open(data, newline='') as csvfile:
+    reader = csv.DictReader(csvfile)
+    for colheader in reader:
+        print('I recognized the following columns: \n',colheader[[0]])
+    print('I need to know which columns you want to use as variables for the test, so please write the name of the column exactly as it appears above')
+    input_col1 = input('which column do you want to use as variable 1?\n')
+    input_col2 = input('which column do you want to use as variable 2?\n')
+    input_col3 = input('which column do you want to use as variable 3?\n')
+
+
+print(col)
 
 # Variable1
 
@@ -48,7 +60,7 @@ test_type = input(
 
 # Variable3
 
-print("The variables identified are: ", variable1, variable2, variable3)
+#print("The variables identified are: ", variable1, variable2, variable3)
 
 
 
