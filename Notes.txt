@@ -5,3 +5,14 @@
 3. Move to a front end --> probably streamlit
 4. Test
 5. Ponder about a db inclusion
+
+
+# -------------- 22 - 05 - 2026 ------ #  
+-- dependency checker
+Dovrebbe controllare se nella stessa colonna ci sono nomi ripetuti
+Se ci sono, dovrebbe controllare per quali valori differiscono e quali no 
+L'idea è spottare i topi che sono ripetuti nel tempo e printare 
+"I tuoi campioni sembrano dipendenti dalla variabile XXX" 
+1. Forse si potrebbe controllare direttamente solo colonne con nomi specifici tipo sample/names/mouse/reps
+2. Inutile che controlli misure e variabili dicotomiche
+

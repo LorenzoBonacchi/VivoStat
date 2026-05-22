@@ -50,7 +50,7 @@ with open(data, newline='') as csvfile: #it seems to read rows by default
     input_col2 = input('which column do you want to use as variable 2?\n')
     input_col3 = input('which column do you want to use as variable 3?\n')
 
-print(col)
+
 
 # ora come ora non va bene test_data.csv => andrebbe trasformato in un formato long
 # Name | Time | Treatment | Genotype | Sex
@@ -58,6 +58,26 @@ print(col)
 # VEHF2-
 # ----
 
+# --------------- Indipendence check ------------------ #
+
+# Indipendence check --> check if the variables are indipendent or not, if not we need to use a mixed model
+# In test data --> Time means not indipendent from Mouse
+
+identifier = {'sample', 'id', 'mouse', 'subject', 'patient', 'individual','Names'} #list of possible identifiers for the samples, to check if the variables are indipendent or not
+
+def dependence_checker(variable1, variable2):
+    # code to check if the variables are indipendent or not
+    # if not indipendent, return True, else return False
+    print("Checking variables dependency...")
+    if colname(data) in identifier:
+        for sample in identifier:
+            if variable1 == variable2:
+                print("The variables are not indipendent, you should use a mixed model")
+            else:
+                print("The variables seems indipendent, you can use a simple test")
+
+
+# ------------------------------------------------------ #
 
 
 # Variable1
@@ -67,12 +87,6 @@ print(col)
 # Variable3
 
 #print("The variables identified are: ", variable1, variable2, variable3)
-
-# Indipendence check --> check if the variables are indipendent or not, if not we need to use a mixed model
-# In test data --> Time means not indipendent from Mouse
- 
-
-
 
 
 
