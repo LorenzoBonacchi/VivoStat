@@ -42,10 +42,10 @@ test_type = input(
 # Search for the metadata/factors 
 # The idea is to check for strings and numbers to identify metadata
 
-with open(data, newline='') as csvfile:
-    reader = csv.DictReader(csvfile)
+with open(data, newline='') as csvfile: #it seems to read rows by default
+    reader = csv.reader(csvfile)
     for colheader in reader:
-        print('I recognized the following columns: \n',colheader[[0]])
+        print('I recognized the following columns: \n',colheader)
     print('I need to know which columns you want to use as variables for the test, so please write the name of the column exactly as it appears above')
     input_col1 = input('which column do you want to use as variable 1?\n')
     input_col2 = input('which column do you want to use as variable 2?\n')
