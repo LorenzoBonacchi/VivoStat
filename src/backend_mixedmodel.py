@@ -44,15 +44,21 @@ test_type = input(
 
 with open(data, newline='') as csvfile: #it seems to read rows by default
     reader = csv.reader(csvfile)
-    for colheader in reader:
-        print('I recognized the following columns: \n',colheader)
+    print('I recognized the following columns: \n', reader.__next__()) #print the first row of the csv file, which should be the column names
     print('I need to know which columns you want to use as variables for the test, so please write the name of the column exactly as it appears above')
     input_col1 = input('which column do you want to use as variable 1?\n')
     input_col2 = input('which column do you want to use as variable 2?\n')
     input_col3 = input('which column do you want to use as variable 3?\n')
 
-
 print(col)
+
+# ora come ora non va bene test_data.csv => andrebbe trasformato in un formato long
+# Name | Time | Treatment | Genotype | Sex
+# VEHF1-
+# VEHF2-
+# ----
+
+
 
 # Variable1
 
@@ -61,6 +67,10 @@ print(col)
 # Variable3
 
 #print("The variables identified are: ", variable1, variable2, variable3)
+
+# Indipendence check --> check if the variables are indipendent or not, if not we need to use a mixed model
+# In test data --> Time means not indipendent from Mouse
+ 
 
 
 
