@@ -16,3 +16,12 @@ L'idea è spottare i topi che sono ripetuti nel tempo e printare
 1. Forse si potrebbe controllare direttamente solo colonne con nomi specifici tipo sample/names/mouse/reps
 2. Inutile che controlli misure e variabili dicotomiche
 
+# possible imports to run mixed models
+
+import pandas as pd  #trivial
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+
+from statsmodels.stats.anova import anova_lm
+
+

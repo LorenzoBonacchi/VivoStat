@@ -8,6 +8,8 @@
 import os 
 import pandas as pd
 import csv
+import statsmodels.formula.api as smf
+from statsmodels.stats.anova import anova_lm
 
 data = input(
     'Write the data-file name\n'
@@ -49,6 +51,7 @@ with open(data, newline='') as csvfile: #it seems to read rows by default
     input_col1 = input('which column do you want to use as variable 1?\n')
     input_col2 = input('which column do you want to use as variable 2?\n')
     input_col3 = input('which column do you want to use as variable 3?\n')
+    input_col4 = input('which column do you want to use as variable 4?\n')
 
 
 
@@ -69,7 +72,7 @@ def dependence_checker(variable1, variable2):
     # code to check if the variables are indipendent or not
     # if not indipendent, return True, else return False
     print("Checking variables dependency...")
-    if colname(data) in identifier:
+    if data.columns[0] in identifier:
         for sample in identifier:
             if variable1 == variable2:
                 print("The variables are not indipendent, you should use a mixed model")
@@ -79,20 +82,35 @@ def dependence_checker(variable1, variable2):
 
 # ------------------------------------------------------ #
 
+# Autocheck measures WIP --> ci lascio value come variaibile solo per testare che funzioni il codice 
 
 # Variable1
-
+value = df[input_col1] #change 'value' with the name of the column that contains the values you want to test
 # Variable2
-
+trattamento = df[input_col2] #change 'trattamento' with the name of the column that contains the treatment information    
 # Variable3
+tempo = df[input_col3] #change 'tempo' with the name of the column that contains the time information
+# Variable4
+genotipo = df[input_col4] #change 'genotipo' with the name of the column that contains the genotype information
 
-#print("The variables identified are: ", variable1, variable2, variable3)
+print("The variables identified are: ", variable1, variable2, variable3, variable4)
 
 
 
 # ------ Test function call ---------- #
 
 # Inser mixed model code here
+
+model = smf.mixedlm(
+    "value ~ trattamento * tempo * genotipo + sesso",
+    data=long,
+    groups=long["topo_id"]
+)
+
+result = model.fit()
+
+print(result.summary())
+# to add post hoc
 
 
 #def hello(name): ##specifichi dentro un argomento da richiamare
