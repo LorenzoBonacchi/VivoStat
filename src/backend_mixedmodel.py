@@ -93,7 +93,7 @@ tempo = df[input_col3] #change 'tempo' with the name of the column that contains
 # Variable4
 genotipo = df[input_col4] #change 'genotipo' with the name of the column that contains the genotype information
 
-print("The variables identified are: ", variable1, variable2, variable3, variable4)
+print("The variables identified are: ", input_col1, input_col2, input_col3, input_col4)
 
 
 
@@ -101,22 +101,21 @@ print("The variables identified are: ", variable1, variable2, variable3, variabl
 
 # Inser mixed model code here
 
+#model = smf.mixedlm(
+#    "value ~ trattamento * tempo * genotipo + sesso",
+#    data=data,
+#    groups=data["topo_id"]
+#)
 model = smf.mixedlm(
     "value ~ trattamento * tempo * genotipo + sesso",
-    data=long,
-    groups=long["topo_id"]
+    data=df,
+    groups=df["Treatment"] #va definita questa variabile per far funzionare il test
 )
-
 result = model.fit()
 
 print(result.summary())
 # to add post hoc
 
-
-#def hello(name): ##specifichi dentro un argomento da richiamare
-#	print(”Hello!”+name)
-#	print(”Have a nice day!”)
-#hello(”Bona”) ##stiamo inviando alla funzione hello() la stringa Bona
 
 
 
