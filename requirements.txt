@@ -1,5 +1,2 @@
-os
-pandas
-csv
-statmodels.formula.api
-statmodels.stats.anova
+pandas>=2.2
+statsmodels>=0.14
