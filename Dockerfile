@@ -1,9 +1,9 @@
 FROM python:3.12
-WORKDIR /src
+WORKDIR /backend
 
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD ["python", "src/backend_mixedmodel.py"]
+CMD ["python", "backend/mixedmodel.py"]
