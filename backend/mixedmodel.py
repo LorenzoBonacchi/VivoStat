@@ -39,13 +39,7 @@ def main():
         reader = csv.reader(csvfile)
         print('I recognized the following columns: \n', reader.__next__()) #print the first row of the csv file, which should be the column names
         print('I need to know which columns you want to use as variables for the test, so please write the name of the column exactly as it appears above')
-        input_col1 = input('which column do you want to use as variable 1?\n')
-        input_col2 = input('which column do you want to use as variable 2?\n')
-        input_col3 = input('which column do you want to use as variable 3?\n')
-        input_col4 = input('which column do you want to use as variable 4?\n')
-
-
-
+        
     # ora come ora non va bene test_data.csv => andrebbe trasformato in un formato long
     # Name | Time | Treatment | Genotype | Sex
     # VEHF1-
@@ -75,36 +69,39 @@ def main():
 
     # Autocheck measures WIP --> ci lascio value come variaibile solo per testare che funzioni il codice 
 
-    # Variable1
-    value = df[input_col1] #change 'value' with the name of the column that contains the values you want to test
-    # Variable2
-    trattamento = df[input_col2] #change 'trattamento' with the name of the column that contains the treatment information    
-    # Variable3
-    tempo = df[input_col3] #change 'tempo' with the name of the column that contains the time information
-    # Variable4
-    genotipo = df[input_col4] #change 'genotipo' with the name of the column that contains the genotype information
+    outcome_col = input("Outcome variable (Y): ")
+    group_col = input("Random effect (subject/id): ")
 
-    print("The variables identified are: ", input_col1, input_col2, input_col3, input_col4)
+    fixed_effects = input(
+        "Fixed effects (comma separated): "
+    ).split(",")
 
+    fixed_effects = [x.strip() for x in fixed_effects]
 
+    # --- check columns ---
+    all_cols = [outcome_col, group_col] + fixed_effects
 
-    # ------ Test function call ---------- #
+    missing = [c for c in all_cols if c not in df.columns]
+    if missing:
+        raise ValueError(f"Missing columns: {missing}")
 
-    # Inser mixed model code here
+    # --- formula ---
+    formula = outcome_col + " ~ " + " * ".join(fixed_effects)
 
-    #model = smf.mixedlm(
-    #    "value ~ trattamento * tempo * genotipo + sesso",
-    #    data=data,
-    #    groups=data["topo_id"]
-    #)
+    print("Using formula:", formula)
+
+    # --- model ---
     model = smf.mixedlm(
-        "value ~ trattamento * tempo * genotipo + sesso",
+        formula,
         data=df,
-        groups=df["Treatment"] #va definita questa variabile per far funzionare il test
+        groups=df[group_col]
     )
-    result = model.fit()
 
+    result = model.fit()
     print(result.summary())
+
+    
+    
     # to add post hoc
 
 
