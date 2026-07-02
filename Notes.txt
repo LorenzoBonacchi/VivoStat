@@ -29,3 +29,7 @@ from statsmodels.stats.anova import anova_lm
 1. gli input funzionano ora, non trovo un modo migliore per chiederli al momento
 2. da checkare se read_table viene usato effettivamente
 3. prossima volta lavoro su possibile grafico e tabella con output
+
+
+# -------------- 02 - 07 - 2026 ------ # 
+Tested read_table on different extensions. Seems to work for now.
