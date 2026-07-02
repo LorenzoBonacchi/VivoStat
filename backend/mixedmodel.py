@@ -16,10 +16,12 @@ def main():
 
     data = input(
         'Write the data-file name\n'
-        'The format must be included (ex. data.csv, data.tsv, data.xls/xlsx): '
     )
 
-    df = read_table(data)
+    try:
+        df = read_table(data)
+    except ValueError as e:
+        print(e)
 
     if df is not None:
         print(df)
