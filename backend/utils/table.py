@@ -1,7 +1,6 @@
 ## Functions for managing tables
-
+from pathlib import Path
 import pandas as pd
-
 ## Function to read input table (.csv, .tsv, .xls/.xlsx)
 
 def read_table(filename):
