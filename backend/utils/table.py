@@ -4,10 +4,6 @@ import pandas as pd
 ## Function to read input table (.csv, .tsv, .xls/.xlsx)
 
 def read_table(filename):
-<<<<<<< HEAD
-=======
-
->>>>>>> 0d763b1 (fix: manages error when table is not loaded yet)
     if filename is None:
         return None
 
