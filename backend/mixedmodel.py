@@ -41,11 +41,14 @@ def main():
     # Search for the metadata/factors 
     # The idea is to check for strings and numbers to identify metadata
 
-    with open(data, newline='') as csvfile: #it seems to read rows by default
-        reader = csv.reader(csvfile)
-        print('I recognized the following columns: \n', reader.__next__()) #print the first row of the csv file, which should be the column names
-        print('I need to know which columns you want to use as variables for the test, so please write the name of the column exactly as it appears above')
-        
+    # with open(data, newline='') as csvfile: #it seems to read rows by default
+    #     reader = csv.reader(csvfile)
+    #     print('I recognized the following columns: \n', reader.__next__()) #print the first row of the csv file, which should be the column names
+    #     print('I need to know which columns you want to use as variables for the test, so please write the name of the column exactly as it appears above')
+    print('I recognized the following columns: \n', df.columns.values.tolist())
+    print('I need to know which columns you want to use as variables for the test, so please write the name of the column exactly as it appears above')
+    print(df.columns[0])
+    
     # ora come ora non va bene test_data.csv => andrebbe trasformato in un formato long
     # Name | Time | Treatment | Genotype | Sex
     # VEHF1-
