@@ -15,15 +15,20 @@ from utils.table import read_table
 
 def main():
 
-    data = input(
-        'Write the data-file name\n'
-        'The format must be included (ex. data.csv, data.tsv, data.xls/xlsx): '
-    )
+    st.title('VivoStat')
+    
+    file_types = ["text/csv",
+        "text/tab-separated-values",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "application/vnd.ms-excel"]
 
-    df = read_table(data)
+    data = st.file_uploader('Load your table: ', type = file_types)
 
-    if df is not None:
-        print(df)
+    if data is not None:
+        df = read_table(data)
+        st.subheader('This is your data: ')
+        st.text('Select the columns you want to use as variables for the test')
+        st.write(df)
 
 
     test_type = input(
