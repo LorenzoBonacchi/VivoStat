@@ -5,6 +5,9 @@ import pandas as pd
 ## Function to read input table (.csv, .tsv, .xls/.xlsx)
 
 def read_table(filename):
+    if filename is None:
+        return None
+
     try:
         filename_lower = filename.lower()
         if filename_lower.endswith(".csv"):
