@@ -9,6 +9,7 @@ import os
 import pandas as pd
 import csv
 import statsmodels.formula.api as smf
+import streamlit as st
 from statsmodels.stats.anova import anova_lm
 from utils.table import read_table
 
