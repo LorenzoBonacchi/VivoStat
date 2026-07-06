@@ -9,7 +9,7 @@ def read_table(filename):
         return None
 
     try:
-        filename_lower = filename.lower()
+        filename_lower = filename.name.lower()
         if filename_lower.endswith(".csv"):
             return pd.read_csv(filename)
         elif filename_lower.endswith(".tsv"):
