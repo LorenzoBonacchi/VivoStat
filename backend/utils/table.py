@@ -9,12 +9,16 @@ def read_table(filename):
         return None
 
     try:
-        return pd.read_csv(filename, sep=None, engine="python")
-    except Exception:
-        pass
-    try:
-        return pd.read_excel(filename)
-    except Exception:
-        raise ValueError(
-            "Unsupported file format. Try tsv, csv or Excel files"
-        )
+        filename_lower = filename.name.lower()
+        if filename_lower.endswith(".csv"):
+            return pd.read_csv(filename)
+        elif filename_lower.endswith(".tsv"):
+            return pd.read_csv(filename, sep="\t")
+        elif filename_lower.endswith((".xls", ".xlsx")):
+            return pd.read_excel(filename)
+        else:
+            raise ValueError(f"Unsupported file format. Please provide a .csv, .tsv, or .xlsx file.")
+
+    except FileNotFoundError:
+        print(f"Error: '{filename}' was not found.")
+        return None
