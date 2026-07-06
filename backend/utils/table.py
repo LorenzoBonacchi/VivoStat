@@ -4,10 +4,10 @@ import pandas as pd
 ## Function to read input table (.csv, .tsv, .xls/.xlsx)
 
 def read_table(filename):
-    filename=Path(filename)
-    ext = filename.suffix.lower()
-    if ext in [".xlsx", ".xls"]:
-        return pd.read_excel(filename)
+
+    if filename is None:
+        return None
+
     try:
         return pd.read_csv(filename, sep=None, engine="python")
     except Exception:
