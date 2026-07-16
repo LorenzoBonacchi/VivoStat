@@ -33,3 +33,9 @@ from statsmodels.stats.anova import anova_lm
 
 # -------------- 02 - 07 - 2026 ------ # 
 Tested read_table on different extensions. Seems to work for now.
+
+# -------------- 16 - 07 - 2026 ------ # 
+1. Il template data è in formato long va creato uno script per trasformare l'excel/csv di input in formato long
+2. Da implementare i grafici 
+3. Secondo me c'è un loop di troppo e si può scrivere meglio la parte di parametri+run analysis
+4. IMPORTANTE --> dependency check: utile non solo per mixed model ma anche per capire il tipo di t test ecc.
