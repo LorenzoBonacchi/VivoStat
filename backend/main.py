@@ -5,7 +5,7 @@
 # input type of test
 # input type of data (e.g. gene expression, methylation, etc.)
 # input type of plots
-import os 
+import os ##useless for now
 import pandas as pd
 import csv # useless for now
 import statsmodels.formula.api as smf
@@ -34,28 +34,74 @@ def main():
 
         test_type = st.selectbox("Test",["Mixed Model","ANOVA","T-test"])
     
-        st.subheader("Select the variables for the analysis")
+        # ----------------------------------------------------------------------- #
+        # Mixed Models parameters 
+        # ----------------------------------------------------------------------- #
+        if test_type == "Mixed Model":
+            st.subheader("Mixed Models parameters")
+            # Outcome
+            outcome_col = st.selectbox("Outcome variable (Y)",df.columns)
+            # Random effect
+            group_col = st.selectbox("Subject / Random effect",df.columns)
+            # Fixed effects
+            fixed_effects = st.multiselect("Fixed effects",[c for c in df.columns if c not in [outcome_col, group_col]])
 
-        # Outcome
-        outcome_col = st.selectbox("Outcome variable (Y)",df.columns)
-        # Random effect
-        group_col = st.selectbox("Subject / Random effect",df.columns)
-        # Fixed effects
-        fixed_effects = st.multiselect("Fixed effects",[c for c in df.columns if c not in [outcome_col, group_col]])
-    
-    # ----------------------------------------------------------------------- #
-    # Run analysis
-    ## To add a summary before starting
-    if st.button("Run analysis"):
 
-        result = run_mixed_model(
-            df,
-            outcome_col,
-            group_col,
-            fixed_effects
-        )
-        st.text(result.summary())
-    
+        # ----------------------------------------------------------------------- #
+        # T-test parameters
+        # ----------------------------------------------------------------------- #
+        elif test_type == "T-test":
+
+            st.subheader("T-test parameters")
+
+            outcome = st.selectbox("Measurement variable", df.select_dtypes(include="number").columns)
+            group_variable = st.selectbox("Grouping variable", df.select_dtypes(exclude="number").columns)
+
+
+        # ----------------------------------------------------------------------- #
+        # Anova parameters
+        # ----------------------------------------------------------------------- #
+        elif test_type == "ANOVA":
+
+            st.subheader("ANOVA parameters")
+            
+            outcome_col = st.selectbox("Measurement variable", df.select_dtypes(include="number").columns)
+            factors = st.multiselect("Factors",df.select_dtypes(exclude="number").columns)
+
+        # ----------------------------------------------------------------------- #
+        # Run analysis
+        ## To add a summary before starting
+        ## Maybe there's a more elegant way to do this, but for now it works
+        if st.button("Run analysis"):
+
+            if test_type == "Mixed Model":
+
+                result = run_mixed_model(
+                    df,
+                    outcome_col,
+                    group_col,                    
+                    fixed_effects
+                )
+        
+            elif test_type == "ANOVA":
+        
+                result = run_anova(
+                    df,                    
+                    outcome_col,
+                    factors
+                )
+        
+            elif test_type == "T-test":
+                
+                result = run_ttest(
+                    df,
+                    outcome,
+                    group_variable                
+                )
+
+            st.text(result.summary())
+            # NB solo per mixed model, per gli altri test non c'è summary
+            # da pensare a come gestire i risultati dei test diversi
     
 
     # ----------------------------------------------------------------------- #
