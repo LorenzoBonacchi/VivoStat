@@ -60,6 +60,7 @@ def main():
         
         st.text('Select the columns you want to use as variables for the test')
         df = tb.read_table(data)
+        report = dependency_check(df)
         st.subheader('This is your data: ')
 =======
         df = tb.read_table(data)
@@ -86,6 +87,23 @@ def main():
                 selected_variable = st.selectbox(label="Variable", options=options, index=default_index, key=f"select_{column}")
         
         st.dataframe(df, width="stretch", hide_index=True)
+        st.subheader("Dataset inspection")
+
+        if any(report["repeated_measurements"].values()): # not working as intended
+            st.warning(
+            """
+            Repeated measurements detected.
+        
+            Some observations are not independent.
+            Mixed Model or repeated-measures ANOVA are recommended.
+            """
+        )
+
+        else:
+
+            st.success("No repeated measurements detected.")
+        
+        st.text('Select the columns you want to use as variables for the test')
 
         test_type = st.selectbox("Test",["Mixed Model","ANOVA","T-test"])
     
