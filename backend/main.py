@@ -16,6 +16,9 @@ from statistics.mixed_models import run_mixed_model
 from statistics.dependency import dependency_check
 from PIL import Image  
 
+DATA_DIR = "../data"
+
+
 def main():
     # ----------------------------------------------------------------------- #
     # Streamlit
@@ -52,6 +55,7 @@ def main():
 
         test_type = st.selectbox("Test",["Mixed Model","ANOVA","T-test"])
     
+
         # ----------------------------------------------------------------------- #
         # Mixed Models parameters 
         # ----------------------------------------------------------------------- #
