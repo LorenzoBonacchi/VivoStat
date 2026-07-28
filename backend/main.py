@@ -23,10 +23,16 @@ def main():
     # ----------------------------------------------------------------------- #
     # Streamlit
     # ----------------------------------------------------------------------- #
-    st.title('VivoStat')
-    img = Image.open("../data/streamlit_image.jpeg") # Open the image file
-    st.image(img, width=200) 
-    file_types = ["csv", "tsv", "xlsx"] #fixed non MIME types for file uploader
+    
+    ### Title and logo image
+    img = Image.open(f"{DATA_DIR}/streamlit_image.png") # Open the image file
+    col1, col2 = st.columns([1, 6], gap="xxsmall", vertical_alignment="center")
+    with col1:
+        st.image(img, width=90) 
+    with col2:
+        st.title('VivoStat')
+
+    file_types = ["csv", "tsv", "xlsx"] # fixed non MIME types for file uploader
 
     data = st.file_uploader('Load your table: ', type = file_types)
 
