@@ -11,7 +11,7 @@ import csv # useless for now
 import statsmodels.formula.api as smf
 import streamlit as st
 from statsmodels.stats.anova import anova_lm
-from utils.table import read_table
+import utils.table as tb
 from statistics.mixed_models import run_mixed_model
 from statistics.dependency import dependency_check
 from PIL import Image  
@@ -52,6 +52,29 @@ def main():
             st.success("No repeated measurements detected.")
         
         st.text('Select the columns you want to use as variables for the test')
+        df = tb.read_table(data)
+        st.subheader('This is your data: ')
+        st.text('Select the correct category for the variables:')
+        data_vars, possible_variables = tb.check_cols(df)
+        cols = st.columns(len(df.columns))
+
+        # Managing selection boxes
+        for i, column in enumerate(df.columns):
+            detected_variables = data_vars[column]
+
+            if len(detected_variables) == 1:
+                detected_variable = detected_variables[0]
+                options = [detected_variable] + [var for var in possible_variables if var != detected_variable]
+                default_index = 0
+
+            else:
+                options = ["Select..."] + possible_variables
+                default_index = 0
+
+            with cols[i]:
+                selected_variable = st.selectbox(label="Variable", options=options, index=default_index, key=f"select_{column}")
+        
+        st.dataframe(df, width="stretch", hide_index=True)
 
         test_type = st.selectbox("Test",["Mixed Model","ANOVA","T-test"])
     
