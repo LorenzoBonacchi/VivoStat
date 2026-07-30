@@ -37,8 +37,7 @@ def main():
     data = st.file_uploader('Load your table: ', type = file_types)
 
     if data is not None:
-<<<<<<< HEAD
-        df = read_table(data)
+        df = tb.read_table(data)
         report = dependency_check(df)
         st.subheader('This is your data: ')
         st.write(df)
@@ -62,10 +61,6 @@ def main():
         df = tb.read_table(data)
         report = dependency_check(df)
         st.subheader('This is your data: ')
-=======
-        df = tb.read_table(data)
-        st.subheader('This is your data: ')
->>>>>>> 07ed481 (feat: variables auto-detector)
         st.text('Select the correct category for the variables:')
         data_vars, possible_variables = tb.check_cols(df)
         cols = st.columns(len(df.columns))
