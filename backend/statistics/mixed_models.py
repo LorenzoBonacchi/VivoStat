@@ -1,6 +1,6 @@
 
 import statsmodels.formula.api as smf
-
+import pandas as pd
 # ----------------------------------------------------------------------- #
 # Mixed Model
 # ----------------------------------------------------------------------- #
@@ -14,6 +14,14 @@ def run_mixed_model(df, outcome, subject, fixed_effects):
         data=df,
         groups=df[subject]
     )
-
-    return model.fit()
+    result = model.fit()
+    return {
+        "model": result,
+        "fixed_effects": pd.DataFrame({
+            "Estimate": result.fe_params,
+            "SE": result.bse_fe,
+            "p-value": result.pvalues[:len(result.fe_params)]
+        }),
+        "random_effects": pd.DataFrame(result.random_effects).T
+    }
 
