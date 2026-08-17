@@ -15,7 +15,13 @@ import utils.table as tb
 from statistics.mixed_models import run_mixed_model
 from statistics.dependency import dependency_check
 from PIL import Image  
-
+from plots.mixed_models_plots import (
+    plot_predicted_vs_observed,
+    plot_residuals,
+    plot_qq,
+    plot_random_effects,
+    plot_fixed_effects
+)
 DATA_DIR = "../data"
 
 
@@ -32,8 +38,10 @@ def main():
     with col2:
         st.title('VivoStat')
 
+    # ----------------------------------------------------------------------- #
+    # Data input
+    # ----------------------------------------------------------------------- #
     file_types = ["csv", "tsv", "xlsx"] # fixed non MIME types for file uploader
-
     data = st.file_uploader('Load your table: ', type = file_types)
 
     if data is not None:
@@ -97,6 +105,9 @@ def main():
         
         st.text('Select the columns you want to use as variables for the test')
 
+        # ----------------------------------------------------------------------- #
+        # Test selection
+        # ----------------------------------------------------------------------- #
         test_type = st.selectbox("Test",["Mixed Model","ANOVA","T-test"])
     
 
@@ -154,6 +165,20 @@ def main():
                 st.dataframe(result["random_effects"])
                 with st.expander("Full model summary"):
                     st.text(result["model"].summary())
+                # ----------------------------------------------------------------------- #
+                # Plots
+                st.pyplot(plot_predicted_vs_observed(result["model"], df, outcome_col))
+                st.subheader("Model diagnostics")
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.pyplot(plot_residuals(result["model"]))
+                with col2:
+                    st.pyplot(plot_qq(result["model"]))
+                col3, col4 = st.columns(2)
+                with col3:
+                    st.pyplot(plot_random_effects(result["model"]))
+                with col4:
+                    st.pyplot(plot_fixed_effects(result["model"]))
             
             elif test_type == "ANOVA":
         
